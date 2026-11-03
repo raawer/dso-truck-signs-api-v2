@@ -22,9 +22,11 @@ done
 
 echo "PostgreSQL is active"
 
+echo "Collecting static files ..."
 python manage.py collectstatic --noinput
 
+echo "Applying database migrations ..."
 python manage.py migrate --noinput
-echo "Djangos migrations finished"
 
+echo "Starting gunicorn ..."
 gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000
