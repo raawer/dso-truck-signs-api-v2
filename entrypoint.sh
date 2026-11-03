@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Django's manage.py and the tsa_app package live in src/
+cd /app/src
+
 echo "Waiting for postgres to connect ..."
 
 DB_CHECK="import os, psycopg2; psycopg2.connect(
