@@ -28,5 +28,21 @@ python manage.py collectstatic --noinput
 echo "Applying database migrations ..."
 python manage.py migrate --noinput
 
+CREATE_SUPERUSER="
+from django.contrib.auth import get_user_model
+import os
+User = get_user_model()
+NAME = os.environ['DJANGO_SUPERUSER_USERNAME']
+if not User.objects.filter(username=NAME).exists():
+    User.objects.create_superuser(
+        NAME,
+        os.environ['DJANGO_SUPERUSER_EMAIL'],
+        os.environ['DJANGO_SUPERUSER_PASSWORD'])
+"
+
+echo "Ensuring the django superuser exists ..."
+python manage.py shell -c "${CREATE_SUPERUSER}"
+
+
 echo "Starting gunicorn ..."
 gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000
