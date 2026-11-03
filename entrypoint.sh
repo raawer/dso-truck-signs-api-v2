@@ -22,11 +22,11 @@ done
 
 echo "PostgreSQL is active"
 
-echo "Collecting static files ..."
-python manage.py collectstatic --noinput
-
 echo "Applying database migrations ..."
 python manage.py migrate --noinput
+
+echo "Collecting static files ..."
+python manage.py collectstatic --noinput
 
 CREATE_SUPERUSER="
 from django.contrib.auth import get_user_model
