@@ -24,7 +24,7 @@ echo "PostgreSQL is active"
 
 python manage.py collectstatic --noinput
 
-#TODO add migrations
-echo "Postgresql migrations finished"
+python manage.py migrate --noinput
+echo "Djangos migrations finished"
 
 gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000
