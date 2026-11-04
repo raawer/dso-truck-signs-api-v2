@@ -320,7 +320,6 @@ setup builds the image locally and needs no registry credentials on the host.
 | `example.env` | template for `.env`, lists every variable |
 | `requirements.txt` | Python dependencies |
 | `pyproject.toml` | configuration for `black`, `isort` and `flake8` |
-| `Procfile` | process definition for Heroku-style platforms; unused by this setup |
 | `src/` | the Django project: `tsa_app` holds the settings, `tsa_products` the models, views and serializers |
 | `docs/testing.md` | linting and test tooling |
 | `Truck Signs API v2 Checkliste.pdf` | the course submission checklist this repository is graded against |

@@ -26,5 +26,4 @@ docker-compose.yml
 .gitignore
 .github/
 *.toml
-Procfile
 example.env
