@@ -40,14 +40,14 @@ services:
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
       DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
     volumes:
-      - ./src/staticfiles:/app/src/staticfiles
-      - ./src/media:/app/src/media
+      - media_files:/app/src/mediafiles
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   postgres_data:
+  media_files:
 
 networks:
   tsa-network:
