@@ -24,7 +24,6 @@ services:
   backend:
     build: .
     container_name: tsa_backend
-    command: gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000 --workers 4
     restart: on-failure
     environment:
       MODE: prod
