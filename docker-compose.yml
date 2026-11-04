@@ -2,6 +2,7 @@ services:
   db:
     image: postgres:18-alpine
     container_name: tsa_db
+    restart: on-failure
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
@@ -24,8 +25,7 @@ services:
     build: .
     container_name: tsa_backend
     command: gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000 --workers 4
-    networks:
-      - tsa-network
+    restart: on-failure
     environment:
       MODE: prod
       DEBUG_ENABLED: 'False'
@@ -39,6 +39,8 @@ services:
       DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
       DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+    networks:
+      - tsa-network
     volumes:
       - media_files:/app/src/mediafiles
     ports:
