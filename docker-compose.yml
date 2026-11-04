@@ -41,6 +41,8 @@ services:
       DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
     volumes:
       - media_files:/app/src/mediafiles
+    ports:
+      - "8020:8000"
     depends_on:
       db:
         condition: service_healthy
