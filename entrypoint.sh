@@ -33,12 +33,16 @@ from django.contrib.auth import get_user_model
 import os
 User = get_user_model()
 NAME = os.environ['DJANGO_SUPERUSER_USERNAME']
+PASSWORD = os.environ['DJANGO_SUPERUSER_PASSWORD']
+if not PASSWORD:
+    raise SystemExit('DJANGO_SUPERUSER_PASSWORD must not be empty')
 if not User.objects.filter(username=NAME).exists():
     User.objects.create_superuser(
         NAME,
         os.environ['DJANGO_SUPERUSER_EMAIL'],
-        os.environ['DJANGO_SUPERUSER_PASSWORD'])
+        PASSWORD)
 "
+
 
 echo "Ensuring the django superuser exists ..."
 python manage.py shell -c "${CREATE_SUPERUSER}"
