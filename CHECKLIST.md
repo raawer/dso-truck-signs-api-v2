@@ -102,8 +102,9 @@
 
 ### Testing
 
-- [ ] The Truck Signs API is reachable on port 8020 via the IP address of the cloud VM -
-      **open**, pending verification in a browser after the single-worker fix
+- [x] The Truck Signs API is reachable on port 8020 via the IP address of the cloud VM -
+      verified in a browser, not with curl: the access log shows 200 for the pages and
+      the static files and 302 for the admin login, with no worker timeouts
 - [x] The `ENTRYPOINT` starts the WSGI application - the response carries
       `Server: gunicorn`; the development server would send `WSGIServer`
 - [x] After restarting the setup the configured data is still present and is neither
