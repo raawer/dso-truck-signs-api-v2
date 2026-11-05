@@ -322,6 +322,9 @@ setup builds the image locally and needs no registry credentials on the host.
 | `pyproject.toml` | configuration for `black`, `isort` and `flake8` |
 | `src/` | the Django project: `tsa_app` holds the settings, `tsa_products` the models, views and serializers |
 | `docs/testing.md` | linting and test tooling |
+| `.github/workflows/` | the three CI workflows, described under [Continuous Integration](#continuous-integration) |
+| `.gitignore` | keeps `.env`, the virtual environment and local artefacts out of version control |
+| `README.md` | this file |
 | `Truck Signs API v2 Checkliste.pdf` | the course submission checklist this repository is graded against |
 
 ## Application Details
