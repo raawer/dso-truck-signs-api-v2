@@ -26,6 +26,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: truck-signs-api:1.0.0
+    pull_policy: build
     container_name: tsa_backend
     restart: on-failure
     environment:
