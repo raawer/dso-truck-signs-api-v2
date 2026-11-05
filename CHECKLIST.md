@@ -78,8 +78,8 @@
 
 ### General
 
-- [ ] A Loom video of at most 5 minutes showing the submission - **open**, to be recorded
-      for this submission
+- [x] A Loom video of at most 5 minutes showing the submission - recorded for this
+      submission and sent together with the admin credentials
 
 ### Security
 
