@@ -49,4 +49,4 @@ python manage.py shell -c "${CREATE_SUPERUSER}"
 
 
 echo "Starting gunicorn ..."
-exec gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000
+exec gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000 --workers 5 --access-logfile -
