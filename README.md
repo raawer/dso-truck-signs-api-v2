@@ -11,9 +11,14 @@ The store also allows clients to upload their own designs and to customize them 
 
 </div>
 
+This repository holds the backend of the Truck Signs store: a Django application with a
+Django REST Framework API, served by gunicorn and backed by PostgreSQL, packaged to run
+as a Docker Compose stack. The API is published on port **8020** of the host, the Django
+admin interface at `/admin/`; every file of the setup is listed under
+[Repository Contents](#repository-contents).
+
 ## Table of Contents
 
-- [Description](#description)
 - [Quickstart](#quickstart)
   - [Prerequisites](#prerequisites)
   - [Run the Stack](#run-the-stack)
@@ -32,14 +37,6 @@ The store also allows clients to upload their own designs and to customize them 
 - [Application Details](#application-details)
 - [Admin Panel Screenshots](#screenshots-of-the-django-backend-admin-panel)
 - [Additional Information](#additional-information)
-
-## Description
-
-This repository holds the backend of the Truck Signs store: a Django application with a
-Django REST Framework API, served by gunicorn and backed by PostgreSQL, packaged to run
-as a Docker Compose stack. The API is published on port **8020** of the host, the Django
-admin interface at `/admin/`; every file of the setup is listed under
-[Repository Contents](#repository-contents).
 
 ## Quickstart
 
@@ -227,13 +224,20 @@ instead, so the image tag cannot be raised without moving the mount.
 The start command lives in the last line of `entrypoint.sh`:
 
 ```bash
-exec gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000
+exec gunicorn tsa_app.wsgi:application --bind 0.0.0.0:8000 --workers 5 --access-logfile -
 ```
 
-Add gunicorn options there, for example `--workers 4`. The common rule of thumb is
-`(2 x CPU cores) + 1`. The port inside the container has to stay in sync with
-`EXPOSE` in the `Dockerfile` and with the right-hand side of the port mapping in
-`docker-compose.yml`.
+`--workers 5` follows the rule of thumb `(2 x CPU cores) + 1` for the two-core host this
+is deployed on; adjust it to the machine, and check the result with `docker stats`. A
+single worker is not enough: the sync worker serves one connection at a time, and a
+browser that opens a connection without sending a request on it blocks that worker until
+gunicorn's timeout expires. `curl` does not reproduce this, a browser does.
+
+`--access-logfile -` writes every request to stdout, so `docker compose logs backend`
+shows what a visitor asked for and what they got. Without it, gunicorn logs errors only.
+
+The port inside the container has to stay in sync with `EXPOSE` in the `Dockerfile` and
+with the right-hand side of the port mapping in `docker-compose.yml`.
 
 To publish the API on a different host port, change the left-hand side only:
 
@@ -325,6 +329,7 @@ setup builds the image locally and needs no registry credentials on the host.
 | `.github/workflows/` | the three CI workflows, described under [Continuous Integration](#continuous-integration) |
 | `.gitignore` | keeps `.env`, the virtual environment and local artefacts out of version control |
 | `README.md` | this file |
+| `CHECKLIST.md` | the course submission checklist with its state; mirrors the PDF, whose checkboxes are not fillable |
 | `Truck Signs API v2 Checkliste.pdf` | the course submission checklist this repository is graded against |
 
 ## Application Details
