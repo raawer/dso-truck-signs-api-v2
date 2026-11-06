@@ -1,0 +1,29 @@
+# Secrets - must never end up in an image layer
+.env*
+.git
+
+# Local development environment
+.venv/
+.python-version
+**/__pycache__/
+**/.DS_Store
+
+# Local artifacts - regenerated inside the container
+src/db.sqlite3
+src/staticfiles/
+src/mediafiles/
+
+# Documentation and course material
+*.md
+docs/
+src/screenshots/
+*.pdf
+
+# Build and tooling config, unused at runtime
+Dockerfile
+.dockerignore
+docker-compose.yml
+.gitignore
+.github/
+*.toml
+example.env
